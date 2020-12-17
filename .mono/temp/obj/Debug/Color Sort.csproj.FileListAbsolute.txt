@@ -1,0 +1,8 @@
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/bin/Debug/Color Sort.dll
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/bin/Debug/Color Sort.pdb
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/obj/Debug/Color Sort.csprojAssemblyReference.cache
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/obj/Debug/Color Sort.AssemblyInfoInputs.cache
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/obj/Debug/Color Sort.AssemblyInfo.cs
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/obj/Debug/Color Sort.csproj.CoreCompileInputs.cache
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/obj/Debug/Color Sort.dll
+/home/calista/Desktop/Calista/GodotProjects/Color Sort/.mono/temp/obj/Debug/Color Sort.pdb
