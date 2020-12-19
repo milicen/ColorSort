@@ -60,7 +60,7 @@ curve = SubResource( 2 )
 script = ExtResource( 5 )
 
 [node name="ColorDataContainer" parent="LeftPath" instance=ExtResource( 6 )]
-position = Vector2( 241.873, 1060 )
+position = Vector2( 241.873, 1075 )
 
 [node name="RightPath" type="Path2D" parent="." groups=[
 "Path",
@@ -70,10 +70,10 @@ curve = SubResource( 2 )
 script = ExtResource( 5 )
 
 [node name="ColorDataContainer" parent="RightPath" instance=ExtResource( 6 )]
-position = Vector2( 241.176, 1060 )
+position = Vector2( 240.427, 1075 )
 
 [node name="EndPosition_y" type="Position2D" parent="."]
-position = Vector2( 362.575, 1006.36 )
+position = Vector2( 362.575, 1016.36 )
 
 [node name="Tween" type="Tween" parent="."]
 

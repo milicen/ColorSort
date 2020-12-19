@@ -10,7 +10,7 @@ public class ColorDataContainer : Node
     public Godot.Collections.Array<Ball.Colors> colors = new Godot.Collections.Array<Ball.Colors>();
 
     Global global;
-    Color initialColor = new Color(0.47f, 0.47f, 0.47f, 1);
+    Color initialColor = new Color(0.27f, 0.41f, 0.5f, 1);
 
     public override void _Ready()
     {

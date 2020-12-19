@@ -39,22 +39,22 @@ public class Ball : PathFollow2D
 
             switch (global.spawnColorsData[rand]){
                 case Ball.Colors.Red:
-                    Modulate = new Color(0.88f, 0, 0, 1);
+                    Modulate = new Color(0.97f, 0.1f, 0.1f, 1);
                     break;
                 case Ball.Colors.Orange:
-                    Modulate = new Color(0.88f, 0.57f, 0, 1);
+                    Modulate = new Color(1, 0.64f, 0.14f, 1);
                     break;
                 case Ball.Colors.Yellow:
-                    Modulate = new Color(0.93f, 0.93f, 0, 1);
+                    Modulate = new Color(1, 0.88f, 0.08f, 1);
                     break;
                 case Ball.Colors.Green:
-                    Modulate = new Color(0.07f, 0.85f, 0, 1);
+                    Modulate = new Color(0.18f, 0.86f, 0.02f, 1);
                     break;
                 case Ball.Colors.Blue:
-                    Modulate = new Color(0, 0.88f, 0.91f, 1);
+                    Modulate = new Color(0.07f, 0.99f, 0.94f, 1);
                     break;
                 case Ball.Colors.Violet:
-                    Modulate = new Color(0.6f, 0, 1, 1);
+                    Modulate = new Color(0.83f, 0.11f, 1, 1);
                     break;
             }
         colors = global.spawnColorsData[rand];
