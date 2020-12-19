@@ -132,7 +132,7 @@ public class HUD : Node
         GetNode<Label>("OverDisplay/ColorRect/MarginContainer/VBoxContainer/ScoreContainer/Score/ScoreNum").Text = score.ToString();
         if(level == "Easy"){
             if(score >= file.highscore){
-                file.SetHighScore(score);
+                file.SetHighScore_Easy(score);
             }
             GetNode<Label>("OverDisplay/ColorRect/MarginContainer/VBoxContainer/ScoreContainer/HighScore/ScoreNum").Text = file.highscore.ToString(); 
         } else {
