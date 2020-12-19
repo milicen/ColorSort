@@ -1,10 +1,11 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://assets/Path_425.png" type="Texture" id=1]
 [ext_resource path="res://scripts/Hard.cs" type="Script" id=2]
 [ext_resource path="res://assets/Lever.png" type="Texture" id=3]
 [ext_resource path="res://assets/Path_300.png" type="Texture" id=4]
 [ext_resource path="res://scripts/Path.cs" type="Script" id=5]
+[ext_resource path="res://scenes/ColorDataContainer.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Curve2D" id=1]
 _data = {
@@ -94,17 +95,32 @@ curve = SubResource( 1 )
 [node name="MainPathRight" type="Path2D" parent="."]
 curve = SubResource( 2 )
 
-[node name="LeftPath" type="Path2D" parent="."]
+[node name="LeftPath" type="Path2D" parent="." groups=[
+"Path",
+]]
 curve = SubResource( 3 )
 script = ExtResource( 5 )
 
-[node name="RightPath" type="Path2D" parent="."]
+[node name="ColorDataContainer" parent="LeftPath" instance=ExtResource( 6 )]
+position = Vector2( 142.933, 1012.45 )
+
+[node name="RightPath" type="Path2D" parent="." groups=[
+"Path",
+]]
 curve = SubResource( 4 )
 script = ExtResource( 5 )
 
-[node name="MiddlePath1" type="Path2D" parent="."]
+[node name="ColorDataContainer" parent="RightPath" instance=ExtResource( 6 )]
+position = Vector2( 598.468, 1137.22 )
+
+[node name="MiddlePath1" type="Path2D" parent="." groups=[
+"Path",
+]]
 curve = SubResource( 5 )
 script = ExtResource( 5 )
+
+[node name="ColorDataContainer" parent="MiddlePath1" instance=ExtResource( 6 )]
+position = Vector2( 260.142, 1168.03 )
 
 [node name="MiddlePath2" type="Path2D" parent="."]
 curve = SubResource( 6 )
@@ -128,13 +144,15 @@ __meta__ = {
 [node name="CollisionShape2D" type="CollisionShape2D" parent="RightArea"]
 shape = SubResource( 7 )
 
-[node name="LeftTimer" type="Timer" parent="."]
+[node name="LeftTimer" type="Timer" parent="." groups=[
+"LeftTimer",
+]]
 wait_time = 2.0
-autostart = true
 
-[node name="RightTimer" type="Timer" parent="."]
+[node name="RightTimer" type="Timer" parent="." groups=[
+"RightTimer",
+]]
 wait_time = 1.5
-autostart = true
 
 [node name="TweenLeft" type="Tween" parent="."]
 

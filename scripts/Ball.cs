@@ -34,64 +34,87 @@ public class Ball : PathFollow2D
         global = GetNode<Global>("/root/Global");
         GD.Randomize();
 
-        int rand = (int) GD.RandRange(0, global.spawnColorsData.Count);
+        if(global.mode == "Easy"){
+            int rand = (int) GD.RandRange(0, global.spawnColorsData.Count);
 
-        switch (global.spawnColorsData[rand]){
-            case Ball.Colors.Red:
-                Modulate = new Color(0.88f, 0, 0, 1);
-                break;
-            case Ball.Colors.Orange:
-                Modulate = new Color(0.88f, 0.57f, 0, 1);
-                break;
-            case Ball.Colors.Yellow:
-                Modulate = new Color(0.93f, 0.93f, 0, 1);
-                break;
-            case Ball.Colors.Green:
-                Modulate = new Color(0.07f, 0.85f, 0, 1);
-                break;
-            case Ball.Colors.Blue:
-                Modulate = new Color(0, 0.88f, 0.91f, 1);
-                break;
-            case Ball.Colors.Violet:
-                Modulate = new Color(0.6f, 0, 1, 1);
-                break;
-        }
-
+            switch (global.spawnColorsData[rand]){
+                case Ball.Colors.Red:
+                    Modulate = new Color(0.88f, 0, 0, 1);
+                    break;
+                case Ball.Colors.Orange:
+                    Modulate = new Color(0.88f, 0.57f, 0, 1);
+                    break;
+                case Ball.Colors.Yellow:
+                    Modulate = new Color(0.93f, 0.93f, 0, 1);
+                    break;
+                case Ball.Colors.Green:
+                    Modulate = new Color(0.07f, 0.85f, 0, 1);
+                    break;
+                case Ball.Colors.Blue:
+                    Modulate = new Color(0, 0.88f, 0.91f, 1);
+                    break;
+                case Ball.Colors.Violet:
+                    Modulate = new Color(0.6f, 0, 1, 1);
+                    break;
+            }
         colors = global.spawnColorsData[rand];
 
-        // int rand = (int) GD.RandRange(0, 6);
-        // switch (rand){
-        //     case 1 :
-        //         colors = Colors.Red;
-        //         var color1 = new Color(0.88f, 0, 0, 1);
-        //         Modulate = color1;
-        //         break;
-        //     case 2 :
-        //         colors = Colors.Orange;
-        //         var color2 = new Color(0.88f, 0.57f, 0, 1);
-        //         Modulate = color2;
-        //         break;
-        //     case 3 :
-        //         colors = Colors.Yellow;
-        //         var color3 = new Color(0.93f, 0.93f, 0, 1);
-        //         Modulate = color3;
-        //         break;
-        //     case 4 :
-        //         colors = Colors.Green;
-        //         var color4 = new Color(0.07f, 0.85f, 0, 1);
-        //         Modulate = color4;
-        //         break;
-        //     case 5 :
-        //         colors = Colors.Blue;
-        //         var color5 = new Color(0, 0.88f, 0.91f, 1);
-        //         Modulate = color5;
-        //         break;
-        //     default :
-        //         colors = Colors.Violet;
-        //         var color6 = new Color(0.6f, 0, 1, 1);
-        //         Modulate = color6;
-        //         break;                   
-        // }
+        } else if(global.mode == "Hard"){
+            if(GetParent().Name == "MainPathLeft"){
+                int rand = (int) GD.RandRange(0, global.spawnColorsData_Left.Count);
+
+                switch (global.spawnColorsData_Left[rand]){
+                    case Ball.Colors.Red:
+                        Modulate = new Color(0.88f, 0, 0, 1);
+                        break;
+                    case Ball.Colors.Orange:
+                        Modulate = new Color(0.88f, 0.57f, 0, 1);
+                        break;
+                    case Ball.Colors.Yellow:
+                        Modulate = new Color(0.93f, 0.93f, 0, 1);
+                        break;
+                    case Ball.Colors.Green:
+                        Modulate = new Color(0.07f, 0.85f, 0, 1);
+                        break;
+                    case Ball.Colors.Blue:
+                        Modulate = new Color(0, 0.88f, 0.91f, 1);
+                        break;
+                    case Ball.Colors.Violet:
+                        Modulate = new Color(0.6f, 0, 1, 1);
+                        break;
+                }
+
+                colors = global.spawnColorsData_Left[rand];
+                
+            } else if(GetParent().Name == "MainPathRight"){
+                int rand = (int) GD.RandRange(0, global.spawnColorsData_Right.Count);
+
+                switch (global.spawnColorsData_Right[rand]){
+                    case Ball.Colors.Red:
+                        Modulate = new Color(0.88f, 0, 0, 1);
+                        break;
+                    case Ball.Colors.Orange:
+                        Modulate = new Color(0.88f, 0.57f, 0, 1);
+                        break;
+                    case Ball.Colors.Yellow:
+                        Modulate = new Color(0.93f, 0.93f, 0, 1);
+                        break;
+                    case Ball.Colors.Green:
+                        Modulate = new Color(0.07f, 0.85f, 0, 1);
+                        break;
+                    case Ball.Colors.Blue:
+                        Modulate = new Color(0, 0.88f, 0.91f, 1);
+                        break;
+                    case Ball.Colors.Violet:
+                        Modulate = new Color(0.6f, 0, 1, 1);
+                        break;
+                }
+
+                colors = global.spawnColorsData_Right[rand];
+            }
+        }
+
+
     }
 
     public override void _Process(float delta){
@@ -106,10 +129,14 @@ public class Ball : PathFollow2D
             EmitSignal(nameof(endMainPathRight), this);
         }
 
+        if(global.setCount == 2){
+            speed = 180f;
+        } else if(global.setCount >= 3){
+            speed = 200f;
+        }
+
         //easy mode
         if(global.mode == "Easy"){
-            // var regex = new RegEx();
-            // if(HasNode("/root/HUD/" + newPath) /*&& global.mode == "Easy"*/){
             regex.Compile("@?Easy@?\\d*");
             resPath = regex.Search(GetPath());
             newPath = resPath.GetString();
@@ -118,7 +145,6 @@ public class Ball : PathFollow2D
             } else if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath +"/EndPosition_y").GlobalPosition.y && GetParent().Name == "RightPath"){
                 EmitSignal(nameof(reachEnd), "Right", colors, this, newPath);
             }
-            // }
         } else if(global.mode == "Hard"){
             regex.Compile("@?Hard@?\\d*");
             resPath = regex.Search(GetPath());
@@ -132,17 +158,20 @@ public class Ball : PathFollow2D
             }
         }
 
-            
-        
-        //hard mode
-        // var regex1 = new RegEx();
-        // regex1.Compile("@?Hard@?\\d*");
-        // var resPath1 = regex1.Search(GetPath());
-        // var newPath1 = resPath1.GetString();
+        if(Modulate.a < 0.3f){
+            QueueFree();
+        }
 
-        // if(HasNode("/root/HUD/Hard")){
-        // }
+    }
 
+    public void Fade(){
+        var color = new Color(Modulate.r, Modulate.g, Modulate.b, 0);
+        GetNode<Tween>("Tween").InterpolateProperty(this, "modulate", Modulate, color, 0.2f);
+        GetNode<Tween>("Tween").Start();
+    }
+
+    void _on_Tween_tween_completed(Node obj, NodePath key){
+        obj.QueueFree();
     }
 
 }

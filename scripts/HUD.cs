@@ -19,6 +19,7 @@ public class HUD : Node
     public string _newPath;
     Save file;
     Global global;
+    Music music;
 
     public override void _Ready()
     {
@@ -34,6 +35,7 @@ public class HUD : Node
 
         file = GetNode<Save>("/root/Save");
         global = GetNode<Global>("/root/Global");
+        music = GetNode<Music>("/root/Music");
         scoreLabel = GetNode<Label>("PlayDisplay/MarginContainer/HBoxContainer/Score");
 
         ShowButtons("Ready");
@@ -74,9 +76,15 @@ public class HUD : Node
 
     void _on_Play_pressed(){
         ShowButtons("Play");
+        music.PlaySound();
+    }
+
+    void _on_Quit_pressed(){
+        GetTree().Quit();
     }
 
     void _on_Easy_pressed(){
+        music.PlaySound();
         LoadEasyMode(this);
         global.mode = "Easy";
 
@@ -86,6 +94,7 @@ public class HUD : Node
     }
 
     void _on_Hard_pressed(){
+        music.PlaySound();
         LoadHardMode(this);
         global.mode = "Hard";
 
@@ -95,10 +104,12 @@ public class HUD : Node
     }
 
     void _on_Back_pressed(){
+        music.PlaySound();
         ShowButtons("Ready");
     }
 
     void _on_Pause_pressed(){
+        music.PlaySound();
         GetNode<ColorRect>("PauseDisplay/ColorRect").Show();
         GetTree().Paused = true;
     }
@@ -111,6 +122,7 @@ public class HUD : Node
     }
 
     void _on_Path_die(string newPath, string level){
+        music.Over();
         global.ResetWaveTimer();
 
         GetTree().Paused = true;

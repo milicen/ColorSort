@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/music_zapsplat_above_the_clouds_100.ogg-3233739f7f1754c4b0daf5a02c43a0a3.oggstr"
+
+[deps]
+
+source_file="res://assets/music_zapsplat_above_the_clouds_100.ogg"
+dest_files=[ "res://.import/music_zapsplat_above_the_clouds_100.ogg-3233739f7f1754c4b0daf5a02c43a0a3.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

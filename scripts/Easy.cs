@@ -40,7 +40,9 @@ public class Easy : Node
 
         GD.Print("startover");
 
+        global.setCount = 1;
         global.StartWaveTimer();
+        
     }
 
     void _on_Timer_timeout(){
@@ -64,7 +66,12 @@ public class Easy : Node
             isRight = false;
         }
 
-    
+
+        if(global.setCount == 2){
+            GetNode<Timer>("Timer").WaitTime = 1.4f;
+        } else if(global.setCount >= 3){
+            GetNode<Timer>("Timer").WaitTime = 0.8f;
+        }
     }
 
     void _on_Area2D_input_event(Node viewport, InputEvent @event, int index){
@@ -85,21 +92,17 @@ public class Easy : Node
         canSwitch = true;
     }
 
-    async void _on_Ball_endMainPath(Ball _ball){
-        if(!canSwitch){
-            await ToSignal(GetNode<Tween>("Tween"), "tween_completed");
-            mainPath.RemoveChild(_ball);
-            isRight = !isRight;
-        }
-
+    void _on_Ball_endMainPath(Ball _ball){
         if(isRight && canSwitch){
             mainPath.RemoveChild(_ball);
             GetNode<Path2D>("RightPath").AddChild(_ball);
+            _ball.Offset = 0;
         } else if(!isRight && canSwitch){
             mainPath.RemoveChild(_ball);
             GetNode<Path2D>("LeftPath").AddChild(_ball);
+            _ball.Offset = 0;
+
         }
-        _ball.Offset = 0;
     }
 
     void _on_Ball_reachEnd(string side, Ball.Colors colors, Ball _ball, string newPath){

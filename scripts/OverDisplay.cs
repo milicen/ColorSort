@@ -13,10 +13,11 @@ public class OverDisplay : UIDisplay
     }
 
     public override void _on_Home_pressed(){
+        music.PlaySound();
         if(HasNode("/root/HUD/" + newPath)){
             GetNode("/root/HUD/" + newPath).QueueFree();
         }
-        
+
         GetNode<HUD>("/root/HUD").ResetScore();
         GetNode<MarginContainer>("/root/HUD/MainMenu/MarginContainer").Show();
         GetNode<MarginContainer>("/root/HUD/PlayDisplay/MarginContainer").Hide();

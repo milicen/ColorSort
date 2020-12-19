@@ -44,21 +44,27 @@ texture = ExtResource( 2 )
 position = Vector2( 477, 848 )
 texture = ExtResource( 2 )
 
-[node name="Timer" type="Timer" parent="."]
+[node name="Timer" type="Timer" parent="." groups=[
+"Timer",
+]]
 wait_time = 2.0
 autostart = true
 
 [node name="MainPath" type="Path2D" parent="."]
 curve = SubResource( 1 )
 
-[node name="LeftPath" type="Path2D" parent="."]
+[node name="LeftPath" type="Path2D" parent="." groups=[
+"Path",
+]]
 curve = SubResource( 2 )
 script = ExtResource( 5 )
 
 [node name="ColorDataContainer" parent="LeftPath" instance=ExtResource( 6 )]
 position = Vector2( 241.873, 1060 )
 
-[node name="RightPath" type="Path2D" parent="."]
+[node name="RightPath" type="Path2D" parent="." groups=[
+"Path",
+]]
 position = Vector2( 234.87, -0.89093 )
 curve = SubResource( 2 )
 script = ExtResource( 5 )

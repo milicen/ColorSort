@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/zapsplat_multimedia_game_tone_retro_lose_002_44346.ogg-7ed47e897573bc54a6e00a0724b3947d.oggstr"
+
+[deps]
+
+source_file="res://assets/zapsplat_multimedia_game_tone_retro_lose_002_44346.ogg"
+dest_files=[ "res://.import/zapsplat_multimedia_game_tone_retro_lose_002_44346.ogg-7ed47e897573bc54a6e00a0724b3947d.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

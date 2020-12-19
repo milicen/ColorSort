@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=11 format=2]
 
 [ext_resource path="res://assets/DayCare-Regular.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/Ball.png" type="Texture" id=2]
@@ -12,6 +12,10 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 100
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=5]
+size = 70
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -70,7 +74,9 @@ margin_right = 540.0
 margin_bottom = 405.0
 custom_constants/separation = 30
 
-[node name="Play" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Play" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" groups=[
+"Button",
+]]
 visible = false
 margin_right = 360.0
 margin_bottom = 127.0
@@ -82,20 +88,24 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Quit" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Quit" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" groups=[
+"Button",
+]]
 visible = false
 margin_top = 157.0
 margin_right = 360.0
 margin_bottom = 284.0
 rect_min_size = Vector2( 360, 0 )
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 5 )
 text = "Quit"
 flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Easy" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Easy" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" groups=[
+"Button",
+]]
 margin_right = 360.0
 margin_bottom = 127.0
 rect_min_size = Vector2( 360, 0 )
@@ -106,20 +116,23 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Hard" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Hard" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" groups=[
+"Button",
+]]
 margin_top = 157.0
 margin_right = 360.0
 margin_bottom = 284.0
 rect_min_size = Vector2( 360, 0 )
 custom_fonts/font = SubResource( 2 )
-disabled = true
 text = "Hard"
 flat = true
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Back" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+[node name="Back" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" groups=[
+"Button",
+]]
 margin_top = 314.0
 margin_right = 360.0
 margin_bottom = 405.0
@@ -160,7 +173,10 @@ text = "0"
 align = 1
 valign = 1
 
-[node name="Pause" type="Button" parent="PlayDisplay/MarginContainer/HBoxContainer"]
+[node name="Pause" type="Button" parent="PlayDisplay/MarginContainer/HBoxContainer" groups=[
+"Button",
+]]
+pause_mode = 2
 margin_left = 521.0
 margin_right = 570.0
 margin_bottom = 181.0
@@ -173,6 +189,7 @@ flat = true
 
 [node name="OverDisplay" parent="." instance=ExtResource( 5 )]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Easy" to="." method="_on_Easy_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Hard" to="." method="_on_Hard_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Back" to="." method="_on_Back_pressed"]

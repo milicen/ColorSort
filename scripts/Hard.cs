@@ -27,6 +27,8 @@ public class Hard : Node
     Timer leftTimer;
     Timer rightTimer;
 
+    Global global;
+
     public override void _Ready()
     {
         leftLever = GetNode<Sprite>("LeverLeft");
@@ -38,13 +40,49 @@ public class Hard : Node
         leftTimer = GetNode<Timer>("LeftTimer");
         rightTimer = GetNode<Timer>("RightTimer");
 
+        global = GetNode<Global>("/root/Global");
+
         GD.Randomize();
+
+        if(global.colorsData.Count < 6){
+            global.colorsData.Clear();
+            global.AddData(global.colorsData);
+        }
+
+        if(global.unusedColorsData.Count <= 6){
+            global.unusedColorsData.Clear();
+            global.AddData(global.unusedColorsData);
+        }
+
+        if(global.spawnColorsData_Left.Count >= 0){
+            global.spawnColorsData_Left.Clear();
+            global.AddSpawnColorsData("Left");
+            // global.AddSpawnColorsData();
+        }
+
+        if(global.spawnColorsData_Right.Count >= 0){
+            global.spawnColorsData_Right.Clear();
+            global.AddSpawnColorsData("Right");
+            // global.AddSpawnColorsData();
+        }
+
+        if(global.midColors.Count >= 0){
+            global.midColors.Clear();
+        }
+
         int rand = (int) GD.RandRange(0,10);
         if(rand < 4){
-            SpawnBall(Sides.Left);
+            leftTimer.Start();
+            global.firstLeft = true;
         } else {
-            SpawnBall(Sides.Right);
+            rightTimer.Start();
+            global.firstLeft = false;
         }
+
+        GD.Print("startover");
+
+        global.setCount = 1;
+        global.StartWaveTimer();
 
     }
 
@@ -115,14 +153,41 @@ public class Hard : Node
     void _on_Ball_reachEnd(string side, Ball.Colors colors, Ball _ball, string newPath){
 
         if(side == "Left"){
+            if(GetNode<Path>("LeftPath").colors.Count == 0 && global.unusedColorsData.Contains(colors)){
+                GetNode<TextureRect>("LeftPath/ColorDataContainer/VBoxContainer/Color1").Modulate = _ball.Modulate;
+                GetNode<ColorDataContainer>("LeftPath/ColorDataContainer").colors.Add(colors);
+            }
+            else if((global.waveCount == 2 || global.waveCount == 3) && GetNode<Path>("LeftPath").colors.Count < 2 && !GetNode<Path>("LeftPath").colors.Contains(colors) && global.unusedColorsData.Contains(colors) && GetNode<ColorDataContainer>("LeftPath/ColorDataContainer").colors.Count < 2){
+                GetNode<TextureRect>("LeftPath/ColorDataContainer/VBoxContainer/HBoxContainer/Color2").Modulate = _ball.Modulate;
+                GetNode<ColorDataContainer>("LeftPath/ColorDataContainer").colors.Add(colors);
+            }
+
             GetNode<Path>("LeftPath").CheckColor("Hard", "Left", colors, newPath, _ball.Modulate);
-        } else if(side == "Middle"){
+        } 
+        else if(side == "Middle"){
+            if(global.midColors.Count == 0 && global.unusedColorsData.Contains(colors)){
+                GetNode<TextureRect>("MiddlePath1/ColorDataContainer/VBoxContainer/Color1").Modulate = _ball.Modulate;
+                GetNode<ColorDataContainer>("MiddlePath1/ColorDataContainer").colors.Add(colors);
+            }else if(global.waveCount > 1 && global.midColors.Count < 2 && !global.midColors.Contains(colors) && global.unusedColorsData.Contains(colors) && GetNode<ColorDataContainer>("MiddlePath1/ColorDataContainer").colors.Count < 2){
+                GetNode<TextureRect>("MiddlePath1/ColorDataContainer/VBoxContainer/HBoxContainer/Color2").Modulate = _ball.Modulate;
+                GetNode<ColorDataContainer>("MiddlePath1/ColorDataContainer").colors.Add(colors);
+            }
+
             if(_ball.GetParent().Name == "MiddlePath1"){
                 GetNode<Path>("MiddlePath1").CheckColor("Hard", "Middle", colors, newPath, _ball.Modulate);
             } else if(_ball.GetParent().Name == "MiddlePath2"){
                 GetNode<Path>("MiddlePath2").CheckColor("Hard", "Middle", colors, newPath, _ball.Modulate);
             }
-        } else if(side == "Right"){
+        } 
+        else if(side == "Right"){
+            if(GetNode<Path>("RightPath").colors.Count == 0 && global.unusedColorsData.Contains(colors)){
+                GetNode<TextureRect>("RightPath/ColorDataContainer/VBoxContainer/Color1").Modulate = _ball.Modulate;
+                GetNode<ColorDataContainer>("RightPath/ColorDataContainer").colors.Add(colors);
+            }else if(global.waveCount > 1 && GetNode<Path>("RightPath").colors.Count < 2 && !GetNode<Path>("RightPath").colors.Contains(colors) && global.unusedColorsData.Contains(colors) && GetNode<ColorDataContainer>("RightPath/ColorDataContainer").colors.Count < 2){
+                GetNode<TextureRect>("RightPath/ColorDataContainer/VBoxContainer/HBoxContainer/Color2").Modulate = _ball.Modulate;
+                GetNode<ColorDataContainer>("RightPath/ColorDataContainer").colors.Add(colors);
+            }
+
             GetNode<Path>("RightPath").CheckColor("Hard", "Right", colors, newPath, _ball.Modulate);
         }
         _ball.QueueFree();
