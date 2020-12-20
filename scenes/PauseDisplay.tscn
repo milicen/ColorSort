@@ -33,7 +33,7 @@ margin_top = -250.0
 margin_right = 225.0
 margin_bottom = 250.0
 rect_min_size = Vector2( 450, 500 )
-color = Color( 0.364, 0.413, 0.56, 1 )
+color = Color( 0.1972, 0.2436, 0.29, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -112,21 +112,22 @@ text = "0"
 [node name="ButtonContainer" type="HBoxContainer" parent="ColorRect/MarginContainer/VBoxContainer"]
 margin_top = 323.0
 margin_right = 300.0
-margin_bottom = 366.0
+margin_bottom = 373.0
 custom_constants/separation = 100
 alignment = 1
 
 [node name="Home" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/ButtonContainer"]
-margin_left = 11.0
-margin_right = 88.0
-margin_bottom = 43.0
+margin_right = 100.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
 custom_fonts/font = SubResource( 4 )
 text = "Home"
 
 [node name="Return" type="Button" parent="ColorRect/MarginContainer/VBoxContainer/ButtonContainer"]
-margin_left = 188.0
-margin_right = 288.0
-margin_bottom = 43.0
+margin_left = 200.0
+margin_right = 300.0
+margin_bottom = 50.0
+rect_min_size = Vector2( 100, 50 )
 custom_fonts/font = SubResource( 4 )
 text = "Return"
 [connection signal="pressed" from="ColorRect/MarginContainer/VBoxContainer/ButtonContainer/Home" to="." method="_on_Home_pressed"]

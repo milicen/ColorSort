@@ -15,23 +15,6 @@ public class Path : Path2D
     public override void _Ready()
     {
         global = GetNode<Global>("/root/Global");
-        // if(global.colorsData.Count < 6){
-        //     global.colorsData.Clear();
-        //     global.AddData();
-        // }
-
-        // if(global.mode == "Hard"){
-        //     global.ResetMidColorsData();
-        // }
-
-        // if(global.spawnColorsData.Count >= 0){
-        //     global.spawnColorsData.Clear();
-        //     global.AddSpawnColorsData();
-        // }
-
-        // if(global.unusedColorsData.Count <= 6){
-        //     global.ResetUnusedColorsData();
-        // }
     }
 
     public void ClearData(){
@@ -45,59 +28,6 @@ public class Path : Path2D
 
         if(level == "Hard"){
             WaveHard(global.waveCount, level, side, _color, newPath, _ballColor);
-            // if(side == "Middle"){
-            //     if(global.midColors == null && global.colorsData.Contains(_color)){
-            //         global.colorsData.Remove(_color);
-            //         global.midColors.Add(_color);
-            //         EmitSignal(nameof(getScore), side);
-            //     } else if(!global.midColors.Contains(_color) && global.midColors.Count < 2 && global.colorsData.Contains(_color)){
-            //         global.colorsData.Remove(_color);
-            //         global.midColors.Add(_color);
-            //         EmitSignal(nameof(getScore), side);
-            //     } else if(!global.midColors.Contains(_color) && global.midColors.Count < 2 && !global.colorsData.Contains(_color)){
-            //         GD.Print("wrong place for " + _color);
-            //         EmitSignal(nameof(die), newPath, level);
-            //     } else if(!global.midColors.Contains(_color) && global.midColors.Count >= 2 && global.colorsData.Contains(_color)){
-            //         GD.Print(_color + " doesnt belong " + side);
-            //         EmitSignal(nameof(die), newPath, level);
-            //     } else if(!global.midColors.Contains(_color) && global.midColors.Count >= 2 && !global.colorsData.Contains(_color)){
-            //         GD.Print(_color + " shouldnt be " + side);
-            //         EmitSignal(nameof(die), newPath, level);
-            //     } else if(global.midColors.Contains(_color) && !global.colorsData.Contains(_color)){
-            //         EmitSignal(nameof(getScore), side);
-            //     }
-            // } else {
-
-            //     if(colors == null && global.colorsData.Contains(_color)){
-            //         global.colorsData.Remove(_color);
-            //         colors.Add(_color);
-            //         EmitSignal(nameof(getScore), side);
-            //     } else if(!colors.Contains(_color) && colors.Count < 2 && global.colorsData.Contains(_color)){
-            //         global.colorsData.Remove(_color);
-            //         colors.Add(_color);
-            //         EmitSignal(nameof(getScore), side);
-            //     } else if(!colors.Contains(_color) && colors.Count < 2 && !global.colorsData.Contains(_color)){
-            //         GD.Print("wrong place for " + _color);
-            //         EmitSignal(nameof(die), newPath, level);
-            //     } else if(!colors.Contains(_color) && colors.Count >= 2 && global.colorsData.Contains(_color)){
-            //         GD.Print(_color + " doesnt belong " + side);
-            //         EmitSignal(nameof(die), newPath, level);
-            //     } else if(!colors.Contains(_color) && colors.Count >= 2 && !global.colorsData.Contains(_color)){
-            //         GD.Print(_color + " shouldnt be " + side);
-            //         EmitSignal(nameof(die), newPath, level);
-            //     } else if(colors.Contains(_color) && !global.colorsData.Contains(_color)){
-            //         EmitSignal(nameof(getScore), side);
-            //     }
-            // }
-
-            
-
-            // if(colors.Contains(_color)){
-            //     GD.Print(_color + " goes " + side);
-            // }
-            // if(global.midColors.Contains(_color)){
-            //     GD.Print(_color + " goes " + side);
-            // }
         }
 
 
@@ -113,23 +43,23 @@ public class Path : Path2D
             colors.Add(_color);
             EmitSignal(nameof(getScore), side);
         } else if(!colors.Contains(_color) && colors.Count < wave && !global.unusedColorsData.Contains(_color)){
-            GD.Print("wrong place for " + _color);
+            // GD.Print("wrong place for " + _color);
             EmitSignal(nameof(die), newPath, level);
         } else if(!colors.Contains(_color) && colors.Count >= wave && global.unusedColorsData.Contains(_color)){
-            GD.Print(_color + " doesnt belong " + side);
+            // GD.Print(_color + " doesnt belong " + side);
             EmitSignal(nameof(die), newPath, level);
         } else if(!colors.Contains(_color) && colors.Count >= wave && !global.unusedColorsData.Contains(_color)){
-            GD.Print(_color + " shouldnt be " + side);
+            // GD.Print(_color + " shouldnt be " + side);
             EmitSignal(nameof(die), newPath, level);
         } else if(colors.Contains(_color) && !global.unusedColorsData.Contains(_color)){
-                EmitSignal(nameof(getScore), side);
+            EmitSignal(nameof(getScore), side);
         }
 
-        if(colors.Contains(_color)){
-            GD.Print(_color + " goes " + side);
-        }
+        // if(colors.Contains(_color)){
+        //     GD.Print(_color + " goes " + side);
+        // }
 
-        GD.Print("unused_colors_data : " + global.unusedColorsData);
+        // GD.Print("unused_colors_data : " + global.unusedColorsData);
 
     }
 
@@ -145,13 +75,13 @@ public class Path : Path2D
                     global.midColors.Add(_color);
                     EmitSignal(nameof(getScore), side);
                 } else if(!global.midColors.Contains(_color) && global.midColors.Count < wave && !global.unusedColorsData.Contains(_color)){
-                    GD.Print("wrong place for " + _color);
+                    // GD.Print("wrong place for " + _color);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!global.midColors.Contains(_color) && global.midColors.Count >= wave && global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " doesnt belong " + side);
+                    // GD.Print(_color + " doesnt belong " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!global.midColors.Contains(_color) && global.midColors.Count >= wave && !global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " shouldnt be " + side);
+                    // GD.Print(_color + " shouldnt be " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(global.midColors.Contains(_color) && !global.unusedColorsData.Contains(_color)){
                     EmitSignal(nameof(getScore), side);
@@ -166,22 +96,22 @@ public class Path : Path2D
                     global.midColors.Add(_color);
                     EmitSignal(nameof(getScore), side);
                 } else if(!global.midColors.Contains(_color) && global.midColors.Count < 2 && !global.unusedColorsData.Contains(_color)){
-                    GD.Print("wrong place for " + _color);
+                    // GD.Print("wrong place for " + _color);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!global.midColors.Contains(_color) && global.midColors.Count >= 2 && global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " doesnt belong " + side);
+                    // GD.Print(_color + " doesnt belong " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!global.midColors.Contains(_color) && global.midColors.Count >= 2 && !global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " shouldnt be " + side);
+                    // GD.Print(_color + " shouldnt be " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(global.midColors.Contains(_color) && !global.unusedColorsData.Contains(_color)){
                     EmitSignal(nameof(getScore), side);
                 }
             }
 
-            if(colors.Contains(_color)){
-                GD.Print(_color + " goes " + side);
-            }
+            // if(colors.Contains(_color)){
+            //     GD.Print(_color + " goes " + side);
+            // }
 
         } else {
             if(global.waveCount < 3){
@@ -194,21 +124,21 @@ public class Path : Path2D
                     colors.Add(_color);
                     EmitSignal(nameof(getScore), side);
                 } else if(!colors.Contains(_color) && colors.Count < 1 && !global.unusedColorsData.Contains(_color)){
-                    GD.Print("wrong place for " + _color);
+                    // GD.Print("wrong place for " + _color);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!colors.Contains(_color) && colors.Count >= 1 && global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " doesnt belong " + side);
+                    // GD.Print(_color + " doesnt belong " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!colors.Contains(_color) && colors.Count >= 1 && !global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " shouldnt be " + side);
+                    // GD.Print(_color + " shouldnt be " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(colors.Contains(_color) && !global.unusedColorsData.Contains(_color)){
-                        EmitSignal(nameof(getScore), side);
+                    EmitSignal(nameof(getScore), side);
                 }
 
-                if(colors.Contains(_color)){
-                    GD.Print(_color + " goes " + side);
-                }
+                // if(colors.Contains(_color)){
+                //     GD.Print(_color + " goes " + side);
+                // }
             } else if(global.waveCount >= 3){
                 if(colors == null && global.unusedColorsData.Contains(_color)){
                     global.unusedColorsData.Remove(_color);
@@ -219,26 +149,26 @@ public class Path : Path2D
                     colors.Add(_color);
                     EmitSignal(nameof(getScore), side);
                 } else if(!colors.Contains(_color) && colors.Count < 2 && !global.unusedColorsData.Contains(_color)){
-                    GD.Print("wrong place for " + _color);
+                    // GD.Print("wrong place for " + _color);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!colors.Contains(_color) && colors.Count >= 2 && global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " doesnt belong " + side);
+                    // GD.Print(_color + " doesnt belong " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(!colors.Contains(_color) && colors.Count >= 2 && !global.unusedColorsData.Contains(_color)){
-                    GD.Print(_color + " shouldnt be " + side);
+                    // GD.Print(_color + " shouldnt be " + side);
                     EmitSignal(nameof(die), newPath, level);
                 } else if(colors.Contains(_color) && !global.unusedColorsData.Contains(_color)){
-                        EmitSignal(nameof(getScore), side);
+                    EmitSignal(nameof(getScore), side);
                 }
 
-                if(colors.Contains(_color)){
-                    GD.Print(_color + " goes " + side);
-                }
+                // if(colors.Contains(_color)){
+                //     GD.Print(_color + " goes " + side);
+                // }
             }
         }
         
 
-        GD.Print("unused_colors_data : " + global.unusedColorsData);
+        // GD.Print("unused_colors_data : " + global.unusedColorsData);
 
     }
 

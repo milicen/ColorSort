@@ -135,7 +135,6 @@ public class Ball : PathFollow2D
             speed = 200f;
         }
 
-        //easy mode
         if(global.mode == "Easy"){
             regex.Compile("@?Easy@?\\d*");
             resPath = regex.Search(GetPath());

@@ -3,10 +3,6 @@ using System;
 
 public class HUD : Node
 {
-    [Signal]
-    public delegate void easyModeOn(Easy easyMode);
-    [Signal]
-    public delegate void hardModeOn(Hard hardMode);
     Button playButton;
     Button quitButton;
     Button easyButton;
@@ -16,7 +12,6 @@ public class HUD : Node
     public int score = 0;
     public Label scoreLabel;
 
-    public string _newPath;
     Save file;
     Global global;
     Music music;

@@ -9,11 +9,5 @@ script = ExtResource( 2 )
 [node name="Label" parent="ColorRect/MarginContainer/VBoxContainer" index="0"]
 text = "Failed"
 
-[node name="Home" parent="ColorRect/MarginContainer/VBoxContainer/ButtonContainer" index="0"]
-margin_left = 19.0
-margin_right = 96.0
-
 [node name="Return" parent="ColorRect/MarginContainer/VBoxContainer/ButtonContainer" index="1"]
-margin_left = 196.0
-margin_right = 280.0
 text = "Retry"

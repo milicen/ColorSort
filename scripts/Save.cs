@@ -49,7 +49,7 @@ public class Save : Node
 
     public void SaveHighScore_Hard(){
         var file = new File();
-        file.Open(filePath_Easy, File.ModeFlags.Write);
+        file.Open(filePath_Hard, File.ModeFlags.Write);
         file.StoreVar(highscore_hard);
         file.Close();
     }

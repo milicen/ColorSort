@@ -82,12 +82,7 @@ public class Global : Node
 
         if(mode == "Hard"){
             waveCount++;
-            // if(waveCount < 4 && firstLeft){
-            //     AddSpawnColorsData("Left");
-            // } else if(waveCount < 4 && firstLeft){
-            //     AddSpawnColorsData("Right");
-            //     // waveTimer.Stop();
-            // }
+
             if(waveCount == 2 && firstLeft){
                 firstLeft = !firstLeft;
                 GetTree().CallGroup("LeftTimer", "stop");
@@ -101,13 +96,11 @@ public class Global : Node
             } else if(waveCount == 3 && firstLeft){
                 GetTree().CallGroup("RightTimer", "start");
                 GetTree().CallGroup("LeftTimer", "start");
-                // AddSpawnColorsData("Left");
                 AddSpawnColorsData("Right");
             } else if(waveCount == 3 && !firstLeft){
                 GetTree().CallGroup("RightTimer", "start");
                 GetTree().CallGroup("LeftTimer", "start");
                 AddSpawnColorsData("Left");
-                // AddSpawnColorsData("Right");
             } else if(waveCount == 4){
                 if(colorsData.Count > 0){
                     if(spawnColorsData_Left.Count < 3){
@@ -119,21 +112,40 @@ public class Global : Node
                     }
 
                 }
-            }
+            } else if(waveCount == 5){
+                ResetWaveTimer();
+                setCount++;
 
-            // if(waveCount < 4 && waveCount > 1 && firstLeft){
-            //     firstLeft = !firstLeft;
-            //     GetTree().CallGroup("LeftTimer", "stop");
-            //     GetTree().CallGroup("RightTimer", "start");
-            //     AddSpawnColorsData("Right");
-            // } else if(waveCount < 4 && waveCount > 1 && !firstLeft){
-            //     firstLeft = !firstLeft;
-            //     GetTree().CallGroup("RightTimer", "stop");
-            //     GetTree().CallGroup("LeftTimer", "start");
-            //     AddSpawnColorsData("Left");
-            // } else {
-            //     waveTimer.Stop();
-            // }
+                GetTree().CallGroup("ColorData", "ClearData");
+                GetTree().CallGroup("Path", "ClearData");
+                GetTree().CallGroup("Ball", "Fade");
+
+                if(colorsData.Count != 0){
+                    colorsData.Clear();
+                }
+                AddData(colorsData);
+
+                if(unusedColorsData.Count != 0){
+                    unusedColorsData.Clear();
+                }
+                AddData(unusedColorsData);
+
+                midColors.Clear();
+                spawnColorsData_Left.Clear();
+                spawnColorsData_Right.Clear();
+
+                AddSpawnColorsData("Left");
+                AddSpawnColorsData("Right");
+
+                if(firstLeft){
+                    GetTree().CallGroup("RightTimer", "stop");
+                } else {
+                    GetTree().CallGroup("LeftTimer", "stop");
+                }
+                
+                             
+                waveTimer.Start();
+            }
 
         }
     }
@@ -147,14 +159,6 @@ public class Global : Node
         data.Add(Ball.Colors.Violet);
     }
 
-    public void ResetMidColorsData(){
-        midColors.Clear();
-    }
-
-    // public void ResetUnusedColorsData(){
-    //     unusedColorsData = colorsData;
-    // }
-
     public void AddSpawnColorsData(string side = "none"){
         GD.Randomize();
 
@@ -163,43 +167,34 @@ public class Global : Node
                 int rand = (int) GD.RandRange(0, colorsData.Count);
                 spawnColorsData.Add(colorsData[rand]);
                 colorsData.Remove(colorsData[rand]);
-                GD.Print("rad : " + rand);
             }
         } else if(side == "Left" && waveCount == 1){
             for(int i = 0; i < 2; i++){
                 int rand = (int) GD.RandRange(0, colorsData.Count);
                 spawnColorsData_Left.Add(colorsData[rand]);
                 colorsData.Remove(colorsData[rand]);
-                GD.Print("rad : " + rand);
+
             }
         } else if(side == "Right" && waveCount == 1){
             for(int i = 0; i < 2; i++){
                 int rand = (int) GD.RandRange(0, colorsData.Count);
                 spawnColorsData_Right.Add(colorsData[rand]);
                 colorsData.Remove(colorsData[rand]);
-                GD.Print("rad : " + rand);
+
             }
-        } else if(side == "Left" && waveCount == 3){
-            int rand = (int) GD.RandRange(0, colorsData.Count);
-            spawnColorsData_Left.Add(colorsData[rand]);
-            colorsData.Remove(colorsData[rand]);
-        } else if(side == "Right" && waveCount == 3){
-            int rand = (int) GD.RandRange(0, colorsData.Count);
-            spawnColorsData_Right.Add(colorsData[rand]);
-            colorsData.Remove(colorsData[rand]);
-        } else if(side == "Left" && waveCount == 4){
-            int rand = (int) GD.RandRange(0, colorsData.Count);
-            spawnColorsData_Left.Add(colorsData[rand]);
-            colorsData.Remove(colorsData[rand]);
-        } else if(side == "Right" && waveCount == 4){
-            int rand = (int) GD.RandRange(0, colorsData.Count);
-            spawnColorsData_Right.Add(colorsData[rand]);
-            colorsData.Remove(colorsData[rand]);
+        } else if(waveCount == 3){
+            int rand1 = (int) GD.RandRange(0, colorsData.Count);
+            spawnColorsData_Left.Add(colorsData[rand1]);
+            colorsData.Remove(colorsData[rand1]);
+
+            int rand2 = (int) GD.RandRange(0, colorsData.Count);
+            spawnColorsData_Right.Add(colorsData[rand2]);
+            colorsData.Remove(colorsData[rand2]);
         }
 
-        GD.Print("colors_data : " + colorsData);
-        GD.Print("spawn_colors_data_left " + spawnColorsData_Left);
-        GD.Print("spawn_colors_data_right " + spawnColorsData_Right);
+        // GD.Print("colors_data : " + colorsData);
+        // GD.Print("spawn_colors_data_left " + spawnColorsData_Left);
+        // GD.Print("spawn_colors_data_right " + spawnColorsData_Right);
 
     }
 

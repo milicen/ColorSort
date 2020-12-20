@@ -57,13 +57,11 @@ public class Hard : Node
         if(global.spawnColorsData_Left.Count >= 0){
             global.spawnColorsData_Left.Clear();
             global.AddSpawnColorsData("Left");
-            // global.AddSpawnColorsData();
         }
 
         if(global.spawnColorsData_Right.Count >= 0){
             global.spawnColorsData_Right.Clear();
             global.AddSpawnColorsData("Right");
-            // global.AddSpawnColorsData();
         }
 
         if(global.midColors.Count >= 0){

@@ -135,7 +135,7 @@ public class Easy : Node
 
             GetNode<Path>("RightPath").CheckColor("Easy", "Right", colors, newPath, _ball.Modulate);
         }
-        GD.Print(_ball.Modulate);
+        // GD.Print(_ball.Modulate);
         _ball.QueueFree();
     }
 }

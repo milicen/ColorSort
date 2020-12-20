@@ -49,11 +49,6 @@ public class ColorDataContainer : Node
                     GetNode<HBoxContainer>("VBoxContainer/HBoxContainer").Show();
                 }
             }
-            // if(global.waveCount == 3 && global.firstLeft && GetParent().Name == "LeftPath"){
-            //     GetNode<HBoxContainer>("VBoxContainer/HBoxContainer").Show();
-            // } else if(global.waveCount == 3 && !global.firstLeft && GetParent().Name == "RightPath"){
-            //     GetNode<HBoxContainer>("VBoxContainer/HBoxContainer").Show();
-            // }
             if(global.waveCount >= 3){
                 GetNode<HBoxContainer>("VBoxContainer/HBoxContainer").Show();
             }
