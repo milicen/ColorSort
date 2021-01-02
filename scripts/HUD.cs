@@ -36,6 +36,16 @@ public class HUD : Node
         ShowButtons("Ready");
     }
 
+    public override void _Process(float delta){
+        GetNode<Label>("PauseDisplay/ColorRect/MarginContainer/VBoxContainer/ScoreContainer/Score/ScoreNum").Text = score.ToString();
+
+        if(global.mode == "Easy"){
+            GetNode<Label>("PauseDisplay/ColorRect/MarginContainer/VBoxContainer/ScoreContainer/HighScore/ScoreNum").Text = file.highscore.ToString();
+        } else {
+            GetNode<Label>("PauseDisplay/ColorRect/MarginContainer/VBoxContainer/ScoreContainer/HighScore/ScoreNum").Text = file.highscore_hard.ToString();
+        }
+    }
+
     public void ResetScore(){
         score = 0;
         scoreLabel.Text = score.ToString();
@@ -114,6 +124,8 @@ public class HUD : Node
     void _on_Path_getScore(string side){
         score++;
         GetNode<Label>("PlayDisplay/MarginContainer/HBoxContainer/Score").Text = score.ToString();
+
+        
     }
 
     void _on_Path_die(string newPath, string level){
