@@ -34,6 +34,64 @@ public class Ball : PathFollow2D
         global = GetNode<Global>("/root/Global");
         GD.Randomize();
 
+        RandomizeColor();
+
+
+    }
+
+    public override void _Process(float delta){
+        Offset += speed * delta;
+        if(UnitOffset == 1 && GetParent().Name == "MainPath"){
+            EmitSignal(nameof(endMainPath), this);
+        } 
+        else if(UnitOffset == 1 && GetParent().Name == "MainPathLeft"){
+            EmitSignal(nameof(endMainPathLeft), this);
+        }
+        else if(UnitOffset == 1 && GetParent().Name == "MainPathRight"){
+            EmitSignal(nameof(endMainPathRight), this);
+        }
+
+        if(global.setCount == 2){
+            speed = 180f;
+        } else if(global.setCount >= 3){
+            speed = 200f;
+        }
+
+        if(global.mode == "Easy"){
+            regex.Compile("@?Easy@?\\d*");
+            resPath = regex.Search(GetPath());
+            newPath = resPath.GetString();
+            if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/EndPosition_y").GlobalPosition.y && GetParent().Name == "LeftPath"){
+                EmitSignal(nameof(reachEnd), "Left", colors, this, newPath);
+            } else if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath +"/EndPosition_y").GlobalPosition.y && GetParent().Name == "RightPath"){
+                EmitSignal(nameof(reachEnd), "Right", colors, this, newPath);
+            }
+        } else if(global.mode == "Hard"){
+            regex.Compile("@?Hard@?\\d*");
+            resPath = regex.Search(GetPath());
+            newPath = resPath.GetString();
+            if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/LeftEndPosition").GlobalPosition.y && GetParent().Name == "LeftPath"){
+                EmitSignal(nameof(reachEnd), "Left", colors, this, newPath);
+            } else if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/MidEndPosition").GlobalPosition.y && (GetParent().Name == "MiddlePath1" || GetParent().Name == "MiddlePath2")){
+                EmitSignal(nameof(reachEnd), "Middle", colors, this, newPath);
+            } else if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/RightEndPosition").GlobalPosition.y && GetParent().Name == "RightPath"){
+                EmitSignal(nameof(reachEnd), "Right", colors, this, newPath);
+            }
+        }
+
+        if(Modulate.a < 0.3f){
+            QueueFree();
+        }
+
+    }
+
+    public void Fade(){
+        var color = new Color(Modulate.r, Modulate.g, Modulate.b, 0);
+        GetNode<Tween>("Tween").InterpolateProperty(this, "modulate", Modulate, color, 0.2f);
+        GetNode<Tween>("Tween").Start();
+    }
+
+    public void RandomizeColor(){
         if(global.mode == "Easy"){
             int rand = (int) GD.RandRange(0, global.spawnColorsData.Count);
 
@@ -113,60 +171,6 @@ public class Ball : PathFollow2D
                 colors = global.spawnColorsData_Right[rand];
             }
         }
-
-
-    }
-
-    public override void _Process(float delta){
-        Offset += speed * delta;
-        if(UnitOffset == 1 && GetParent().Name == "MainPath"){
-            EmitSignal(nameof(endMainPath), this);
-        } 
-        else if(UnitOffset == 1 && GetParent().Name == "MainPathLeft"){
-            EmitSignal(nameof(endMainPathLeft), this);
-        }
-        else if(UnitOffset == 1 && GetParent().Name == "MainPathRight"){
-            EmitSignal(nameof(endMainPathRight), this);
-        }
-
-        if(global.setCount == 2){
-            speed = 180f;
-        } else if(global.setCount >= 3){
-            speed = 200f;
-        }
-
-        if(global.mode == "Easy"){
-            regex.Compile("@?Easy@?\\d*");
-            resPath = regex.Search(GetPath());
-            newPath = resPath.GetString();
-            if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/EndPosition_y").GlobalPosition.y && GetParent().Name == "LeftPath"){
-                EmitSignal(nameof(reachEnd), "Left", colors, this, newPath);
-            } else if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath +"/EndPosition_y").GlobalPosition.y && GetParent().Name == "RightPath"){
-                EmitSignal(nameof(reachEnd), "Right", colors, this, newPath);
-            }
-        } else if(global.mode == "Hard"){
-            regex.Compile("@?Hard@?\\d*");
-            resPath = regex.Search(GetPath());
-            newPath = resPath.GetString();
-            if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/LeftEndPosition").GlobalPosition.y && GetParent().Name == "LeftPath"){
-                EmitSignal(nameof(reachEnd), "Left", colors, this, newPath);
-            } else if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/MidEndPosition").GlobalPosition.y && (GetParent().Name == "MiddlePath1" || GetParent().Name == "MiddlePath2")){
-                EmitSignal(nameof(reachEnd), "Middle", colors, this, newPath);
-            } else if(Position.y >= GetNode<Position2D>("/root/HUD/" + newPath + "/RightEndPosition").GlobalPosition.y && GetParent().Name == "RightPath"){
-                EmitSignal(nameof(reachEnd), "Right", colors, this, newPath);
-            }
-        }
-
-        if(Modulate.a < 0.3f){
-            QueueFree();
-        }
-
-    }
-
-    public void Fade(){
-        var color = new Color(Modulate.r, Modulate.g, Modulate.b, 0);
-        GetNode<Tween>("Tween").InterpolateProperty(this, "modulate", Modulate, color, 0.2f);
-        GetNode<Tween>("Tween").Start();
     }
 
     void _on_Tween_tween_completed(Node obj, NodePath key){

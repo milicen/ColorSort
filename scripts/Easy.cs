@@ -14,6 +14,9 @@ public class Easy : Node
     Ball ball;
     Global global;
 
+    Ball.Colors spawnBallColor;
+    int sameColorCount = 0;
+
     public override void _Ready()
     {
         lever = GetNode<Sprite>("Lever");
@@ -52,9 +55,30 @@ public class Easy : Node
     void SpawnBall(){
         ball = (Ball) ballScene.Instance();
         mainPath.AddChild(ball);
-        ball.Offset = 0;  
-        ball.Connect("endMainPath", this, nameof(_on_Ball_endMainPath));
-        ball.Connect("reachEnd", this, nameof(_on_Ball_reachEnd)); 
+
+        if(ball.colors != spawnBallColor){
+            spawnBallColor = ball.colors;
+            sameColorCount = 1;
+        } else {
+            sameColorCount++;
+        }
+
+        if(sameColorCount >= 3 && ball.colors == spawnBallColor){
+            mainPath.RemoveChild(ball);
+            ball.QueueFree();
+            SpawnBall();
+        } else if(sameColorCount < 3) {
+            ball.Offset = 0;  
+            ball.Connect("endMainPath", this, nameof(_on_Ball_endMainPath));
+            ball.Connect("reachEnd", this, nameof(_on_Ball_reachEnd)); 
+
+            GD.Print("ball_color : " + ball.colors);
+            GD.Print("color : " + spawnBallColor);
+            GD.Print("count : " + sameColorCount);
+        }
+        
+        
+
     }
 
     public override void _Process(float delta){

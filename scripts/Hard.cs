@@ -15,6 +15,13 @@ public class Hard : Node
     bool left_canSwitch = true;
     bool right_canSwitch = true;
 
+    Ball.Colors spawnBallColorLeft;
+    Ball.Colors spawnBallColorRight;
+
+    int sameColorCOuntLeft;
+    int sameColorCOuntRight;
+
+
     PackedScene ballScene = (PackedScene) GD.Load("res://scenes/Ball.tscn");
 
     Sprite leftLever;
@@ -94,13 +101,49 @@ public class Hard : Node
         sides = _side;
         if(sides == Sides.Left){
             mainPathLeft.AddChild(ball);
-            ball.Connect("endMainPathLeft", this, nameof(_on_Ball_endMainPathLeft));
+
+            if(ball.colors != spawnBallColorLeft){
+                spawnBallColorLeft = ball.colors;
+                sameColorCOuntLeft = 1;
+            } else {
+                sameColorCOuntLeft++;
+            }
+
+            if(sameColorCOuntLeft >= 3 && ball.colors == spawnBallColorLeft){
+                mainPathLeft.RemoveChild(ball);
+                ball.QueueFree();
+                SpawnBall(Sides.Left);
+            } else if(sameColorCOuntLeft < 3){
+                ball.Connect("endMainPathLeft", this, nameof(_on_Ball_endMainPathLeft));
+                ball.Connect("reachEnd", this, nameof(_on_Ball_reachEnd));
+                ball.Offset = 0;  
+            }
         } else {
             mainPathRight.AddChild(ball);
-            ball.Connect("endMainPathRight", this, nameof(_on_Ball_endMainPathRight));
+
+            if(ball.colors != spawnBallColorRight){
+                spawnBallColorRight = ball.colors;
+                sameColorCOuntRight = 1;
+            } else {
+                sameColorCOuntRight++;
+            }
+
+            if(sameColorCOuntRight >= 3 && ball.colors == spawnBallColorRight){
+                mainPathRight.RemoveChild(ball);
+                ball.QueueFree();
+                SpawnBall(Sides.Right);
+            } else if(sameColorCOuntRight < 3){
+                ball.Connect("endMainPathRight", this, nameof(_on_Ball_endMainPathRight));
+                ball.Connect("reachEnd", this, nameof(_on_Ball_reachEnd));
+                ball.Offset = 0;  
+            }
         }
-        ball.Connect("reachEnd", this, nameof(_on_Ball_reachEnd));
-        ball.Offset = 0;      
+        // ball.Connect("reachEnd", this, nameof(_on_Ball_reachEnd));
+        // ball.Offset = 0;      
+
+        // GD.Print("ball_color : " + ball.colors);
+        // GD.Print("color : " + spawnBallColor);
+        // GD.Print("count : " + sameColorCount);
     }
 
     void SetAndCheckLeftLever(){
