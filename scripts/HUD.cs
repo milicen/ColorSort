@@ -4,6 +4,7 @@ using System;
 public class HUD : Node
 {
     Button playButton;
+    Button tutorialButton;
     Button quitButton;
     Button easyButton;
     Button hardButton;
@@ -19,6 +20,8 @@ public class HUD : Node
     public override void _Ready()
     {
         playButton = GetNode<Button>("MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Play");
+
+        tutorialButton = GetNode<Button>("MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Tutorial");
 
         quitButton = GetNode<Button>("MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Quit");
 
@@ -84,6 +87,13 @@ public class HUD : Node
         music.PlaySound();
     }
 
+    void _on_Tutorial_pressed(){
+        var tutorialScene = (PackedScene) GD.Load("res://scenes/Tutorial.tscn");
+        var tutorial = tutorialScene.Instance();
+        AddChild(tutorial);
+        ShowUI(false);
+    }
+
     void _on_Quit_pressed(){
         GetTree().Quit();
     }
@@ -123,9 +133,7 @@ public class HUD : Node
 
     void _on_Path_getScore(string side){
         score++;
-        GetNode<Label>("PlayDisplay/MarginContainer/HBoxContainer/Score").Text = score.ToString();
-
-        
+        GetNode<Label>("PlayDisplay/MarginContainer/HBoxContainer/Score").Text = score.ToString();       
     }
 
     void _on_Path_die(string newPath, string level){
@@ -153,16 +161,26 @@ public class HUD : Node
     void ShowButtons(string ready){
         if(ready == "Ready"){
             playButton.Show();
+            tutorialButton.Show();
             quitButton.Show();
             easyButton.Hide();
             hardButton.Hide();
             backButton.Hide();
         } else if(ready == "Play"){
             playButton.Hide();
+            tutorialButton.Hide();
             quitButton.Hide();
             easyButton.Show();
             hardButton.Show();
             backButton.Show();
+        }
+    }
+
+    public void ShowUI(bool isShow){
+        if(isShow){
+            GetNode<MarginContainer>("MainMenu/MarginContainer").Show();
+        } else {
+            GetNode<MarginContainer>("MainMenu/MarginContainer").Hide();
         }
     }
 }

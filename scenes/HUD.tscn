@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://assets/DayCare-Regular.otf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/Pause.png" type="Texture" id=2]
@@ -12,6 +12,10 @@ font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=2]
 size = 100
+font_data = ExtResource( 1 )
+
+[sub_resource type="DynamicFont" id=6]
+size = 70
 font_data = ExtResource( 1 )
 
 [sub_resource type="DynamicFont" id=3]
@@ -84,6 +88,20 @@ margin_bottom = 127.0
 rect_min_size = Vector2( 360, 0 )
 custom_fonts/font = SubResource( 2 )
 text = "Play"
+flat = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Tutorial" type="Button" parent="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer" groups=[
+"Button",
+]]
+visible = false
+margin_right = 372.0
+margin_bottom = 127.0
+rect_min_size = Vector2( 360, 0 )
+custom_fonts/font = SubResource( 6 )
+text = "Tutorial"
 flat = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -190,6 +208,7 @@ flat = true
 
 [node name="OverDisplay" parent="." instance=ExtResource( 5 )]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Play" to="." method="_on_Play_pressed"]
+[connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Tutorial" to="." method="_on_Tutorial_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Quit" to="." method="_on_Quit_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Easy" to="." method="_on_Easy_pressed"]
 [connection signal="pressed" from="MainMenu/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/Hard" to="." method="_on_Hard_pressed"]
